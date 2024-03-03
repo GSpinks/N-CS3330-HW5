@@ -1,5 +1,14 @@
 package edu.mu.pizzaStore.pizzaOrdering;
 
-public enum PizzaType {
+//THIS ENUM IS FINISHED
 
+//Student: Aaron Trebus
+
+//This enum declares the four types of pizzas available
+
+public enum PizzaType {
+	Hawaiian,
+	Margherita,
+	Supreme,
+	Vegetarian
 }
