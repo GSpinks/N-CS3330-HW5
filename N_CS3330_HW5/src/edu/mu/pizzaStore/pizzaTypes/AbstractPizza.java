@@ -24,15 +24,18 @@ public abstract class AbstractPizza {
 	protected static int orderIDCounter;
 	protected ICookingStrategy cookingStrategy;
 	
-	public AbstractPizza(List<Toppings> toppingList, double priceWithoutToppings, double totalPrice,
-			double cookingPrice, int pizzaOrderID, ICookingStrategy cookingStrategy) {
-		super();
+	public AbstractPizza(double totalPrice,double cookingPrice, int pizzaOrderID, ICookingStrategy cookingStrategy) {
 		this.toppingList = new ArrayList<Toppings>();
-		this.priceWithoutToppings = priceWithoutToppings;
-		this.totalPrice = totalPrice;
-		this.cookingPrice = cookingPrice;
-		this.pizzaOrderID = pizzaOrderID;
-		this.cookingStrategy = cookingStrategy;
+	}
+	
+	//copy constructor
+	public AbstractPizza(AbstractPizza original) {
+		this.toppingList = original.toppingList;
+		this.priceWithoutToppings = original.priceWithoutToppings;
+		this.totalPrice = original.totalPrice;
+		this.cookingPrice = original.cookingPrice;
+		this.pizzaOrderID = original.pizzaOrderID;
+		this.cookingStrategy = original.cookingStrategy;
 	}
 	
 	protected double addToppingsToPrice(double priceWithoutToppings) {
