@@ -1,14 +1,12 @@
 package edu.mu.pizzaStore.pizzaTypes;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import edu.mu.pizzaStore.cooking.ICookingStrategy;
 import edu.mu.pizzaStore.pizzaOrdering.Toppings;
 
 public abstract class AbstractPizza {
 	
-	/*Unless price issues are encountered during testing, this class is finished
+	/*Class is unfinished
 	 * 
 	 * Student: Aaron Trebus
 	 * 
@@ -21,13 +19,20 @@ public abstract class AbstractPizza {
 	protected List<Toppings> toppingList;
 	protected double priceWithoutToppings, totalPrice, cookingPrice;
 	protected int pizzaOrderID;
-	protected static int orderIDCounter;
+	protected static int orderIDCounter = 0;
 	protected ICookingStrategy cookingStrategy;
 	
-	public AbstractPizza(double totalPrice,double cookingPrice, int pizzaOrderID, ICookingStrategy cookingStrategy) {
-		this.toppingList = new ArrayList<Toppings>();
+	//Constructor may? have paramaters. No confirmation if it should be a default one.
+	public AbstractPizza() {
+		/*TODO
+		 * 
+		 * I don't know how to make the constructors for these classes.
+		 * If anyone else could work on this part, I'd appreciate it.
+		 * 
+		 * The constructor should be implemented to instantiate the toppingList as an ArrayList
+		 */
 	}
-	
+
 	//copy constructor
 	public AbstractPizza(AbstractPizza original) {
 		this.toppingList = original.toppingList;
@@ -39,22 +44,28 @@ public abstract class AbstractPizza {
 	}
 	
 	protected double addToppingsToPrice(double priceWithoutToppings) {
-		//This part of the method sets the PriceWithoutToppings attribute upon call
+		/*This part of the method sets the PriceWithoutToppings attribute upon call
+		 * even though a pizza's priceWithoutToppings should be initialized on construction,
+		 * so it may seem redundant, but
+		 * the Prof wants us to run it like this for testing purposes.
+		 * 
+		 * 
+		 * In Main, just have the argument addToppingsToPrice asks for be the getPriceWithoutToppings() method
+		 * for whichever pizza it would be acting on
+		 */
 		setPriceWithoutToppings(priceWithoutToppings);
-		//Calls on method right below
 		return updatePizzaPrice();
 	}
 	
 	protected double updatePizzaPrice() {
-		/*The price without toppings and the price of the toppings ordered are added to the new totalPrice attribute
-		to make the total pizza value. Even though the same result could have been done without making totalPrice,
-		I figured this was the easiest way for my teammates to see what's happening here.*/
-		double totalPrice = getPriceWithoutToppings();
+		/*The price without toppings and the price of the toppings ordered are
+		 * added to the new totalPrice attribute
+		 * to make the total pizza value. */
 		for(Toppings topping : getToppingList()) {
 			totalPrice += topping.getToppingPrice();
 		}
-		setTotalPrice(totalPrice);
-		return totalPrice;
+		setTotalPrice(totalPrice + getPriceWithoutToppings());
+		return getTotalPrice();
 	}
 	
 	public List<Toppings> getToppingList() {
@@ -99,6 +110,11 @@ public abstract class AbstractPizza {
 	public void setCookingStrategy(ICookingStrategy cookingStrategy) {
 		this.cookingStrategy = cookingStrategy;
 	}
-	
+	@Override
+	public String toString() {
+		return  getClass() + " [toppingList=" + toppingList + ", priceWithoutToppings=" + priceWithoutToppings
+				+ ", totalPrice=" + totalPrice + ", cookingPrice=" + cookingPrice + ", pizzaOrderID=" + pizzaOrderID
+				+ ", cookingStrategy=" + cookingStrategy + "]";
+	}
 	
 }
