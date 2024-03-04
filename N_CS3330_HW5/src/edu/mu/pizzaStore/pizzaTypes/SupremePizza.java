@@ -17,8 +17,8 @@ public class SupremePizza extends AbstractPizza{
 		 * If anyone else could work on this part, I'd appreciate it.
 		 * 
 		 * Prof said the subclasses should use default constructors.
-		 * Above is the list of toppings to add to a marg pizza's toppingList on construction
-		 * A hawaiian pizza's default price is 2.50
+		 * Above is the list of toppings to add to a supreme pizza's toppingList on construction
+		 * A hawaiian pizza's default price is 3.50
 		 * 
 		 * The constructor may have to call on user input in order to be finalized,
 		 * in which case we can save it until we're done with the cookingStrategy Interface
