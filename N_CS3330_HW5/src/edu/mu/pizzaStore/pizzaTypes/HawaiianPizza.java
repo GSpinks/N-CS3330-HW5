@@ -2,8 +2,6 @@ package edu.mu.pizzaStore.pizzaTypes;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import edu.mu.pizzaStore.cooking.ICookingStrategy;
 import edu.mu.pizzaStore.pizzaOrdering.Toppings;
 
 public class HawaiianPizza extends AbstractPizza{
