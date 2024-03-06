@@ -1,12 +1,13 @@
 package edu.mu.pizzaStore.pizzaTypes;
 
+import java.util.ArrayList;
 import java.util.List;
 import edu.mu.pizzaStore.cooking.ICookingStrategy;
 import edu.mu.pizzaStore.pizzaOrdering.Toppings;
 
 public abstract class AbstractPizza {
 	
-	/*Class is unfinished
+	/*
 	 * 
 	 * Student: Aaron Trebus
 	 * 
@@ -22,15 +23,8 @@ public abstract class AbstractPizza {
 	protected static int orderIDCounter = 0;
 	protected ICookingStrategy cookingStrategy;
 	
-	//Constructor may? have paramaters. No confirmation if it should be a default one.
 	public AbstractPizza() {
-		/*TODO
-		 * 
-		 * I don't know how to make the constructors for these classes.
-		 * If anyone else could work on this part, I'd appreciate it.
-		 * 
-		 * The constructor should be implemented to instantiate the toppingList as an ArrayList
-		 */
+		toppingList = new ArrayList<>();
 	}
 
 	//copy constructor
@@ -54,18 +48,11 @@ public abstract class AbstractPizza {
 		 * for whichever pizza it would be acting on
 		 */
 		setPriceWithoutToppings(priceWithoutToppings);
-		return updatePizzaPrice();
-	}
-	
-	protected double updatePizzaPrice() {
-		/*The price without toppings and the price of the toppings ordered are
-		 * added to the new totalPrice attribute
-		 * to make the total pizza value. */
-		for(Toppings topping : getToppingList()) {
+		for(Toppings topping : this.getToppingList()) {
 			totalPrice += topping.getToppingPrice();
 		}
-		setTotalPrice(totalPrice + getPriceWithoutToppings());
-		return getTotalPrice();
+		setTotalPrice(totalPrice + this.getPriceWithoutToppings() + this.getCookingPrice());
+		return this.getTotalPrice();
 	}
 	
 	public List<Toppings> getToppingList() {
@@ -112,7 +99,7 @@ public abstract class AbstractPizza {
 	}
 	@Override
 	public String toString() {
-		return  getClass() + " [toppingList=" + toppingList + ", priceWithoutToppings=" + priceWithoutToppings
+		return  this.getClass() + " [toppingList=" + toppingList + ", priceWithoutToppings=" + priceWithoutToppings
 				+ ", totalPrice=" + totalPrice + ", cookingPrice=" + cookingPrice + ", pizzaOrderID=" + pizzaOrderID
 				+ ", cookingStrategy=" + cookingStrategy + "]";
 	}
