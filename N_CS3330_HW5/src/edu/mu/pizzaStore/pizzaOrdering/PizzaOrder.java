@@ -65,5 +65,12 @@ public class PizzaOrder {
 		return null;
 	}
 	
+	public boolean addPizzaToCart(PizzaType pizzaType) {
+		// Creates a new pizza of type pizzaType and adds it to the pizzaOrderList.
+		AbstractPizza pizza = pizzaFactory.createPizza(pizzaType);
+		pizzaOrderList.add(pizza);
+		
+		return true;
+	}
 	
 }
