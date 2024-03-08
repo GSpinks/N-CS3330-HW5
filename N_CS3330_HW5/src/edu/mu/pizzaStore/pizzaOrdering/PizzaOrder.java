@@ -50,5 +50,20 @@ public class PizzaOrder {
 		}
 	}
 	
+
+	
+	public AbstractPizza getPizzaByOrderID(int orderID) {
+		// This method returns the pizza associated with the given orderID if it exists.
+		// If the pizza does not exist, null is returned.
+		
+		for (AbstractPizza pizza : pizzaOrderList) {
+			if (pizza.getPizzaOrderID() == orderID) {
+				return pizza;
+			}
+		}
+		
+		return null;
+	}
+	
 	
 }
