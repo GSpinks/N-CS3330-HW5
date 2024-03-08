@@ -17,7 +17,7 @@ public class PizzaOrder {
 	}
 
 	public void printListOfToppingsByPizzaOrderID(int orderID) {
-		// Gets the pizza order associated with orderID and prints the toppings associated if the order exists.
+ 		// Gets the pizza order associated with orderID and prints the toppings associated if the order exists.
 		boolean orderExists = false;
 		
 		for (AbstractPizza pizza : pizzaOrderList) {
@@ -38,6 +38,15 @@ public class PizzaOrder {
 		// Did not find order
 		if (!orderExists) {
 			System.out.println("Order #" + Integer.toString(orderID) + " does not exist.");
+		}
+	}
+
+
+	public void printPizzaOrderCart() {
+		// Prints all of the pizzas currently in the order.
+		System.out.println("The pizzas currently in the order are: ");
+		for (AbstractPizza pizza : pizzaOrderList) {
+			System.out.println(pizza.toString());
 		}
 	}
 	
