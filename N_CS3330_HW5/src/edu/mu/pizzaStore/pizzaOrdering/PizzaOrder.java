@@ -73,4 +73,24 @@ public class PizzaOrder {
 		return true;
 	}
 	
+	public boolean addNewToppingToPizza(int orderID, Toppings topping) {
+		// This method finds the pizza order with the given ID and adds the given topping to its topping list
+		//if the given topping is added, it also updates the pizza pricve and returns true.
+		//if the topping already exists inn the topping list of the pizza, it returns false.
+		
+		for (AbstractPizza pizza : pizzaOrderList) {
+			if (pizza.getPizzaOrderID() == orderID) {
+				//check if the topping is present
+				if (pizza.getToppingList().contains(topping)){
+					return false; //the topping is already on the pizza, do not add
+				} else {
+					pizza.getToppingList().add(topping); // add topping
+					pizza.setTotalPrice(pizza.getTotalPrice() + topping.getToppingPrice()); //update the price
+					return true; //topping added 
+				}
+			}
+		}
+		return false; //pizza with given order ID not found
+	}
+	
 }
