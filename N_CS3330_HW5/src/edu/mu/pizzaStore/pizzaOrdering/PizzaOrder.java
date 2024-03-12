@@ -1,7 +1,11 @@
 package edu.mu.pizzaStore.pizzaOrdering;
 
 import edu.mu.pizzaStore.cooking.*;
+import edu.mu.pizzaStore.cooking.cookingStrategies.BrickOvenCookingStrategy;
+import edu.mu.pizzaStore.cooking.cookingStrategies.ConventionalOvenCookingStrategy;
+import edu.mu.pizzaStore.cooking.cookingStrategies.MicrowaveCookingStrategy;
 import edu.mu.pizzaStore.pizzaTypes.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,6 +95,93 @@ public class PizzaOrder {
 			}
 		}
 		return false; //pizza with given order ID not found
+	}
+	
+	public boolean removeToppingFromPizza(int orderID, Toppings topping) {
+		//this method finds the pizza order with the given ID and removes the iven toppig if it exists in the list
+		// if the given topping is removed, it also updates the pizza price and returns true
+		//if the topping doesnt exist it returns false
+		
+		
+		// find the pizza with the given order ID.
+	    for (AbstractPizza pizza : pizzaOrderList) {
+	        if (pizza.getPizzaOrderID() == orderID) {
+	        	//check if topping is present in topping list	    
+	        	List<Toppings> toppingsList = pizza.getToppingList();
+	        	boolean isRemoved = toppingsList.remove(topping);
+	        	if (isRemoved) {
+	        		// if topping was removed, update the pizza price
+	        		double newPrice = pizza.getPriceWithoutToppings(); //set newPrice = to the price without toppings
+	        		for (Toppings existingTopping : toppingsList) { 	
+	        			newPrice += existingTopping.getToppingPrice();	//update price based on what toppings are still on the pizza
+	        		}
+	        		pizza.setTotalPrice(newPrice);
+	        		return true; //topping was removed successfully
+	        	}
+	        	break; //exit the loop
+	        }
+	    }
+		return false; //pizza with given ID not found
+	}
+	
+	public boolean isThereAnyUncookedPizza() {
+		//checks the pizzas in the pizzaOrderList and checks their cooking strategies.
+		// returns true if there are any pizzas without assigned cooking strategy, false if there are none
+		
+		
+	    // check each pizza in the order list.
+	    for (AbstractPizza pizza : pizzaOrderList) {
+	        // If the cookingStrategy for a pizza is null, the pizza is uncooked
+	        if (pizza.getCookingStrategy() == null) {
+	            return true; // found an uncooked pizza, return true
+	        }
+	    }
+	    // all pizzas have a cooking strategy, return false
+	    return false;
+	}
+	
+	public double checkout() throws Exception {
+	    // check for uncooked pizzas using the previous method
+	    if (isThereAnyUncookedPizza()) {
+	        throw new Exception("There are uncooked pizzas in the order. Cannot proceed to checkout.");
+	    }
+
+	    // If all pizzas are cooked, calculate the total price
+	    double totalCartPrice = 0.0;
+	    for (AbstractPizza pizza : pizzaOrderList) {
+	        totalCartPrice += pizza.getTotalPrice();
+	    }
+	    
+	    // return the total cart price
+	    return totalCartPrice;
+	}
+	
+	public boolean selectCookingStrategyByPizzaOrderID(int orderID, CookingStyleType cookingStrategyType) {
+	    // find the pizza with the given orderID
+	    AbstractPizza pizzaToCook = getPizzaByOrderID(orderID);
+	    if (pizzaToCook == null) {
+	        return false; // pizza with the given order ID was not found.
+	    }
+
+	    // instantiate the cooking strategy based on the provided cookingStrategyType.
+	    ICookingStrategy cookingStrategy;
+	    switch (cookingStrategyType) {
+	        case MICROWAVE:
+	            cookingStrategy = new MicrowaveCookingStrategy();
+	            break;
+	        case CONVENTIONAL_OVEN:
+	            cookingStrategy = new ConventionalOvenCookingStrategy();
+	            break;
+	        case BRICK_OVEN:
+	            cookingStrategy = new BrickOvenCookingStrategy();
+	            break;
+	        default:
+	            return false; // if type is not recognized, return false
+	    }
+
+	    // set the strategy and cook the pizza.
+	    pizzaToCook.setCookingStrategy(cookingStrategy);
+	    return cookingStrategy.cook(pizzaToCook);
 	}
 	
 }
