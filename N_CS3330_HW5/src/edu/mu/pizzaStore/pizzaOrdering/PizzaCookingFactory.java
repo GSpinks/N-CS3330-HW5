@@ -7,7 +7,7 @@ import edu.mu.pizzaStore.pizzaTypes.SupremePizza;
 import edu.mu.pizzaStore.pizzaTypes.VegetarianPizza;
 
 public class PizzaCookingFactory {
-    static int PizzaOrderID = 0;
+    static int orderIDcounter = 0;
 	
 	public AbstractPizza createPizza(PizzaType pizzaType){
 		AbstractPizza kindOfPizza = null;
@@ -25,8 +25,8 @@ public class PizzaCookingFactory {
 			kindOfPizza = new SupremePizza();
 		}
 		
-		PizzaOrderID++;
-		kindOfPizza.setPizzaOrderID(PizzaOrderID);
+		orderIDcounter++;
+		kindOfPizza.setPizzaOrderID(orderIDcounter);
 		return kindOfPizza;
 	}
 }
