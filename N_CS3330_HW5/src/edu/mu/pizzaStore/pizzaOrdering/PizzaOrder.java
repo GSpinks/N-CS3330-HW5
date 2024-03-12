@@ -136,4 +136,21 @@ public class PizzaOrder {
 	    return false;
 	}
 	
+	public double checkout() throws Exception {
+	    // check for uncooked pizzas using the previous method
+	    if (isThereAnyUncookedPizza()) {
+	        throw new Exception("There are uncooked pizzas in the order. Cannot proceed to checkout.");
+	    }
+
+	    // If all pizzas are cooked, calculate the total price
+	    double totalCartPrice = 0.0;
+	    for (AbstractPizza pizza : pizzaOrderList) {
+	        totalCartPrice += pizza.getTotalPrice();
+	    }
+	    
+	    // return the total cart price
+	    return totalCartPrice;
+	}
+	
+	
 }
