@@ -1,7 +1,11 @@
 package edu.mu.pizzaStore.pizzaOrdering;
 
 import edu.mu.pizzaStore.cooking.*;
+import edu.mu.pizzaStore.cooking.cookingStrategies.BrickOvenCookingStrategy;
+import edu.mu.pizzaStore.cooking.cookingStrategies.ConventionalOvenCookingStrategy;
+import edu.mu.pizzaStore.cooking.cookingStrategies.MicrowaveCookingStrategy;
 import edu.mu.pizzaStore.pizzaTypes.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,5 +156,32 @@ public class PizzaOrder {
 	    return totalCartPrice;
 	}
 	
+	public boolean selectCookingStrategyByPizzaOrderID(int orderID, CookingStyleType cookingStrategyType) {
+	    // find the pizza with the given orderID
+	    AbstractPizza pizzaToCook = getPizzaByOrderID(orderID);
+	    if (pizzaToCook == null) {
+	        return false; // pizza with the given order ID was not found.
+	    }
+
+	    // instantiate the cooking strategy based on the provided cookingStrategyType.
+	    ICookingStrategy cookingStrategy;
+	    switch (cookingStrategyType) {
+	        case MICROWAVE:
+	            cookingStrategy = new MicrowaveCookingStrategy();
+	            break;
+	        case CONVENTIONAL_OVEN:
+	            cookingStrategy = new ConventionalOvenCookingStrategy();
+	            break;
+	        case BRICK_OVEN:
+	            cookingStrategy = new BrickOvenCookingStrategy();
+	            break;
+	        default:
+	            return false; // if type is not recognized, return false
+	    }
+
+	    // set the strategy and cook the pizza.
+	    pizzaToCook.setCookingStrategy(cookingStrategy);
+	    return cookingStrategy.cook(pizzaToCook);
+	}
 	
 }
