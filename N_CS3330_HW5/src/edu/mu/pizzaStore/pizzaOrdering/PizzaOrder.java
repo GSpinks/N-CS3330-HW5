@@ -93,4 +93,30 @@ public class PizzaOrder {
 		return false; //pizza with given order ID not found
 	}
 	
+	public boolean removeToppingFromPizza(int orderID, Toppings topping) {
+		//this method finds the pizza order with the given ID and removes the iven toppig if it exists in the list
+		// if the given topping is removed, it also updates the pizza price and returns true
+		//if the topping doesnt exist it returns false
+		
+		
+		// find the pizza with the given order ID.
+	    for (AbstractPizza pizza : pizzaOrderList) {
+	        if (pizza.getPizzaOrderID() == orderID) {
+	        	//check if topping is present in topping list	    
+	        	List<Toppings> toppingsList = pizza.getToppingList();
+	        	boolean isRemoved = toppingsList.remove(topping);
+	        	if (isRemoved) {
+	        		// if topping was removed, update the pizza price
+	        		double newPrice = pizza.getPriceWithoutToppings(); //set newPrice = to the price without toppings
+	        		for (Toppings existingTopping : toppingsList) { 	
+	        			newPrice += existingTopping.getToppingPrice();	//update price based on what toppings are still on the pizza
+	        		}
+	        		pizza.setTotalPrice(newPrice);
+	        		return true; //topping was removed successfully
+	        	}
+	        	break; //exit the loop
+	        }
+	    }
+		return false; //pizza with given ID not found
+	}
 }
