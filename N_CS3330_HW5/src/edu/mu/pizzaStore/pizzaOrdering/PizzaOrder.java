@@ -119,4 +119,21 @@ public class PizzaOrder {
 	    }
 		return false; //pizza with given ID not found
 	}
+	
+	public boolean isThereAnyUncookedPizza() {
+		//checks the pizzas in the pizzaOrderList and checks their cooking strategies.
+		// returns true if there are any pizzas without assigned cooking strategy, false if there are none
+		
+		
+	    // check each pizza in the order list.
+	    for (AbstractPizza pizza : pizzaOrderList) {
+	        // If the cookingStrategy for a pizza is null, the pizza is uncooked
+	        if (pizza.getCookingStrategy() == null) {
+	            return true; // found an uncooked pizza, return true
+	        }
+	    }
+	    // all pizzas have a cooking strategy, return false
+	    return false;
+	}
+	
 }
