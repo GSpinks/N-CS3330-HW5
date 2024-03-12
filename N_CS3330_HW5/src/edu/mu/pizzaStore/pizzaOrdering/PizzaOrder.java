@@ -68,14 +68,14 @@ public class PizzaOrder {
 		
 		return null;
 	}
-	
-	public boolean addPizzaToCart(PizzaType pizzaType) {
-		// Creates a new pizza of type pizzaType and adds it to the pizzaOrderList.
-		AbstractPizza pizza = pizzaFactory.createPizza(pizzaType);
-		pizzaOrderList.add(pizza);
-		
-		return true;
-	}
+//	
+//	public boolean addPizzaToCart(PizzaType pizzaType) {
+//		// Creates a new pizza of type pizzaType and adds it to the pizzaOrderList.
+//		AbstractPizza pizza = pizzaFactory.createPizza(pizzaType);
+//		pizzaOrderList.add(pizza);
+//		
+//		return true;
+//	}
 	
 	public boolean addNewToppingToPizza(int orderID, Toppings topping) {
 		// This method finds the pizza order with the given ID and adds the given topping to its topping list
